@@ -1,0 +1,19 @@
+ORBITE PLUS - Mise en ligne
+
+Pour mettre le site en ligne, il faut envoyer le contenu de ce dossier public sur un hebergeur statique.
+
+Fichier principal :
+- index.html
+
+Hebergeurs possibles :
+- GitHub Pages
+- Netlify
+- Vercel
+- un hebergement web classique avec FTP
+
+Important :
+- Ne mets pas seulement le fichier index.html en ligne.
+- Il faut envoyer aussi les dossiers css, js, img et fonts.
+- Si tu utilises GitHub Pages, le fichier .nojekyll doit rester present.
+
+Le site utilise l'API Starblast configuree dans index.html pour recuperer les parties.
