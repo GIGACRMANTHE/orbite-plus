@@ -1,0 +1,46 @@
+body {
+    color-scheme: dark;
+}
+
+.navbar-brand, .navbar-brand:hover {
+    color: white;
+}
+
+.card {
+    background: transparent;
+    border-color: white;
+}
+
+.nav-link:hover {
+    color: #dddddd;
+    cursor: pointer;
+}
+
+.modal-content {
+    background: var(--background-color);
+    border-color: white;
+}
+
+::-webkit-scrollbar {
+    width: 0.1rem;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: white;
+    border-radius: 0.25rem;
+    border: 0.25rem solid white;
+}
+
+:root {
+    --background-color: #202020;
+    --spectate-background-color: #202020;
+    --spectate-asteroids-color: white;
+    --spectate-player-highlighting-color: white;
+    --spectate-leaderboard-highlighting-color: yellow;
+    --ship-icons-filter: "";
+    --text-color: white;
+}
