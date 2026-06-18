@@ -1,0 +1,22 @@
+:root {
+    --background-color: #070a1c;
+    --text-color: #f5fbff;
+    --link-color: #66f7ff;
+    --spectate-leaderboard-highlighting-color: #ff3d9a;
+}
+
+.card,
+.modal-content,
+.form-select {
+    background-color: rgba(10, 15, 38, 0.78);
+    border-color: rgba(102, 247, 255, 0.35);
+    color: var(--text-color);
+}
+
+.btn-outline-danger {
+    --bs-btn-color: #66f7ff;
+    --bs-btn-border-color: #66f7ff;
+    --bs-btn-hover-bg: #66f7ff;
+    --bs-btn-hover-border-color: #66f7ff;
+    --bs-btn-hover-color: #06101a;
+}
