@@ -1,343 +1,287 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <!-- Site Metadata -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Embed Metadata -->
-    
-        <title>ORBITE PLUS</title>
-        <meta name="description" content="ORBITE PLUS tracks Starblast team mode activity, player kills, and long-term rankings with animated orbital themes.">
-        <meta content="ORBITE PLUS" property="og:title">
-        <meta content="ORBITE PLUS" property="og:site_name">
-        <meta content='./img/orbite-plus-logo.svg' property='og:image'>
-        <meta name="twitter:card" content="summary"/>
-        <meta name="twitter:site" content="https://starblast.dankdmitron.dev"/>
-        <meta name="twitter:title" content="ORBITE PLUS"/>
-        <meta name="twitter:description" content="ORBITE PLUS tracks Starblast team mode activity, player kills, and long-term rankings with animated orbital themes."/>
-        <meta name="twitter:image" content="./img/orbite-plus-logo.svg"/>
-        <meta name="theme-color" content="#EC2B7A">
-
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-
-    <!-- Site CSS -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBITE PLUS - Classement Joueurs Europe</title>
+    <meta name="description" content="Classement complet des meilleurs joueurs Starblast en Europe - Kills, Score Survie, Mode Équipe">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="./css/main.css">
     <link rel="icon" type="image/svg+xml" href="./img/orbite-plus-logo.svg">
-    <link rel="shortcut icon" href="./img/orbite-plus-logo.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.64.0/theme/monokai.min.css">
-    <link rel="stylesheet" href="./css/codemirror.min.css">
-    <link rel="stylesheet" href="./css/themes/default_light.css" id="themeStylesheet">
-    <style id="customThemeStylesheet"></style>
-
-    <!-- Site JS Libraries -->
-    <script type="text/javascript" src="./js/classes/ThemeManager.js"></script>
-    <script type="text/javascript" src="./js/classes/PreferencesManager.js"></script>
-    <script type="text/javascript" src="./js/classes/SimStatusListProvider.js"></script>
-    <script type="text/javascript" src="./js/translation.js"></script>
-    <script type="text/javascript" src="./js/classes/SystemListManager.js"></script>
-    <script type="text/javascript" src="./js/classes/SystemReportManager.js"></script>
-    <script type="text/javascript" src="./js/classes/OrbiteLeaderboardManager.js"></script>
-    
-        <script type="text/javascript" src="./js/classes/SpectatorV2.js"></script>
-    
-
-    
-
-    <script type="text/javascript" src="./js/lib/mapGen.js"></script>
-    <script type="text/javascript" src="./js/lib/renderingUtils.js"></script>
-    <script type="text/javascript" src="./js/lib/ecpIcon.js"></script>
-    <script type="text/javascript" src="./js/lib/codemirror.min.js"></script>
-    <script type="text/javascript" src="./js/lib/codemirror.mode.css.min.js"></script>
-
-    <!-- Baked-in Site Config -->
-    <script type="text/javascript">
-        window.siteConfig = {"analytics":{"enabled":false},"mode":"live","live-api-provider":"wss://starblast.dankdmitron.dev/api/","static-api-provider":"https://starblast.dankdmitron.dev/api/","revisionTime":1781799869};
-    </script>
-
 </head>
 <body>
-<div class="orbite-space" aria-hidden="true">
-    <div class="orbite-core"></div>
-    <div class="orbite-ring orbite-ring-one"></div>
-    <div class="orbite-ring orbite-ring-two"></div>
-    <div class="orbite-ring orbite-ring-three"></div>
-    <div class="orbite-starfield"></div>
-</div>
-<div class="orbite-cursor" id="orbiteCursor" aria-hidden="true"></div>
+    <!-- Fond animé Orbite -->
+    <div class="orbite-space" aria-hidden="true">
+        <div class="orbite-core"></div>
+        <div class="orbite-ring orbite-ring-one"></div>
+        <div class="orbite-ring orbite-ring-two"></div>
+        <div class="orbite-ring orbite-ring-three"></div>
+        <div class="orbite-starfield"></div>
+    </div>
+    <div class="orbite-cursor" id="orbiteCursor" aria-hidden="true"></div>
 
+    <!-- Navigation -->
+    <nav class="orbite-navbar">
+        <div class="navbar-container">
+            <div class="navbar-brand-section">
+                <a href="#" class="navbar-brand">
+                    <span class="brand-icon"><i class="bi bi-rocket-takeoff"></i></span>
+                    <span class="brand-text"><b>ORBITE</b> PLUS</span>
+                </a>
+                <span class="navbar-subtitle">Europe • Classement en Temps Réel</span>
+            </div>
+            <div class="navbar-actions">
+                <button class="btn-settings" id="btnSettings" title="Paramètres">
+                    <i class="bi bi-sliders"></i>
+                </button>
+                <button class="btn-info" id="btnInfo" title="À propos">
+                    <i class="bi bi-info-circle"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
 
-    <div class="modal" tabindex="-1" id="aboutModal" data-nosnippet>
-        <div class="modal-dialog d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <!-- Contenu principal -->
+    <div class="orbite-container">
+        <!-- Panneau de contrôle -->
+        <aside class="control-panel">
+            <div class="panel-section">
+                <h3 class="section-title"><i class="bi bi-funnel"></i> Filtres</h3>
+                <div class="filter-group">
+                    <label for="filterMode" class="filter-label">Mode de Jeu</label>
+                    <select id="filterMode" class="filter-select">
+                        <option value="all">Tous les modes</option>
+                        <option value="survival">Survie seulement</option>
+                        <option value="team">Mode Équipe seulement</option>
+                        <option value="kills">Kills seulement</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="sortBy" class="filter-label">Trier par</label>
+                    <select id="sortBy" class="filter-select">
+                        <option value="kills">Kills (Décroissant)</option>
+                        <option value="survivalScore">Score Survie (Décroissant)</option>
+                        <option value="teamScore">Score Équipe (Décroissant)</option>
+                        <option value="totalPoints">Points Totaux (Décroissant)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="section-title"><i class="bi bi-people"></i> Statistiques</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-label">Joueurs Actifs</span>
+                        <span class="stat-value" id="statActivePlayers">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Parties En Cours</span>
+                        <span class="stat-value" id="statActiveGames">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Kills Totaux</span>
+                        <span class="stat-value" id="statTotalKills">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="section-title"><i class="bi bi-palette"></i> Apparence</h3>
+                <div class="filter-group">
+                    <label for="themeSelect" class="filter-label">Thème</label>
+                    <select id="themeSelect" class="filter-select">
+                        <option value="nebula">Nébuleuse</option>
+                        <option value="eclipse">Éclipse</option>
+                        <option value="solar">Solaire</option>
+                        <option value="aurora">Aurore</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Contenu principal -->
+        <main class="main-content">
+            <!-- En-tête avec onglets -->
+            <div class="leaderboard-header">
+                <h1 class="page-title">Classement Joueurs Europe</h1>
+                <p class="page-subtitle">Les meilleurs joueurs Starblast en mode Survie, Équipe et Kills</p>
+                <div class="tabs-container">
+                    <button class="tab-btn active" data-tab="kills">
+                        <i class="bi bi-crosshair"></i> Top Kills
+                    </button>
+                    <button class="tab-btn" data-tab="survival">
+                        <i class="bi bi-shield-check"></i> Top Survie
+                    </button>
+                    <button class="tab-btn" data-tab="team">
+                        <i class="bi bi-people-fill"></i> Top Équipe
+                    </button>
+                    <button class="tab-btn" data-tab="combined">
+                        <i class="bi bi-lightning-charge"></i> Top Global
+                    </button>
+                </div>
+            </div>
+
+            <!-- Classements -->
+            <div class="leaderboards-container">
+                <!-- Top Kills -->
+                <div class="leaderboard-panel active" id="tab-kills">
+                    <div class="leaderboard-info">
+                        <span class="info-badge kills-badge">KILLS</span>
+                        <p class="info-text">Classement basé sur le nombre total de kills en mode Survie</p>
+                    </div>
+                    <div class="leaderboard-list" id="listKills">
+                        <div class="leaderboard-row empty-state">
+                            <p><i class="bi bi-hourglass-split"></i> Chargement des données...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Survie (Score) -->
+                <div class="leaderboard-panel" id="tab-survival">
+                    <div class="leaderboard-info">
+                        <span class="info-badge survival-badge">SURVIE</span>
+                        <p class="info-text">Classement basé sur le score cumulé en mode Survie</p>
+                    </div>
+                    <div class="leaderboard-list" id="listSurvival">
+                        <div class="leaderboard-row empty-state">
+                            <p><i class="bi bi-hourglass-split"></i> Chargement des données...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Mode Équipe -->
+                <div class="leaderboard-panel" id="tab-team">
+                    <div class="leaderboard-info">
+                        <span class="info-badge team-badge">ÉQUIPE</span>
+                        <p class="info-text">Classement basé sur le score cumulé en mode Équipe</p>
+                    </div>
+                    <div class="leaderboard-list" id="listTeam">
+                        <div class="leaderboard-row empty-state">
+                            <p><i class="bi bi-hourglass-split"></i> Chargement des données...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Global -->
+                <div class="leaderboard-panel" id="tab-combined">
+                    <div class="leaderboard-info">
+                        <span class="info-badge global-badge">GLOBAL</span>
+                        <p class="info-text">Classement combiné de tous les modes - Points totaux</p>
+                    </div>
+                    <div class="leaderboard-list" id="listCombined">
+                        <div class="leaderboard-row empty-state">
+                            <p><i class="bi bi-hourglass-split"></i> Chargement des données...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Détails d'un joueur (optionnel) -->
+            <div class="player-details" id="playerDetails" style="display: none;">
+                <div class="player-details-header">
+                    <button class="btn-back" id="btnBackToList">
+                        <i class="bi bi-arrow-left"></i> Retour
+                    </button>
+                    <h2 id="playerName" class="player-name"></h2>
+                </div>
+                <div class="player-details-grid">
+                    <div class="player-stat">
+                        <span class="stat-title">Kills</span>
+                        <span class="stat-number" id="playerKills">0</span>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-title">Score Survie</span>
+                        <span class="stat-number" id="playerSurvival">0</span>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-title">Score Équipe</span>
+                        <span class="stat-number" id="playerTeam">0</span>
+                    </div>
+                    <div class="player-stat">
+                        <span class="stat-title">Points Totaux</span>
+                        <span class="stat-number" id="playerTotal">0</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Panneau latéral (Parties en cours) -->
+        <aside class="side-panel">
+            <div class="panel-section">
+                <h3 class="section-title"><i class="bi bi-controller"></i> Parties En Cours</h3>
+                <div class="games-list" id="gamesList">
+                    <div class="game-item empty">
+                        <p>Aucune partie en cours</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel-section">
+                <h3 class="section-title"><i class="bi bi-star"></i> Meilleur du Jour</h3>
+                <div class="best-player-card" id="bestPlayerCard">
+                    <div class="empty">
+                        <p>Données indisponibles</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Modales -->
+    <!-- Modal Paramètres -->
+    <div class="modal fade" id="settingsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Paramètres</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="modal-body">
-                    <h5 class="text-center">ORBITE PLUS</h5>
-                    <hr class="m-1 pb-1">
-                    <b class="float-start">Days Since Last Update</b>
-                    <span class="float-end" id="timeSinceLastUpdate">0 days</span>
-                    <br>
-                    <b class="float-start">Build ID</b>
-                    <span class="float-end">orbite-</span>
-                    <br>
-                    <hr class="m-1 pb-1">
-                    ORBITE PLUS is a free orbital server list for displaying the status of active
-                    <a class="no-underline" href="https://starblast.io">Starblast.io</a>
-                    games. Special thanks goes out to:
-
-                    <ul>
-                        <li><b>@bhpsngum</b> for providing code to render ECP badges</li>
-                        <li><b>AlbieMorrison#5416</b> for helping with obtaining ship icons</li>
-                        <li>All creators who made themes for the original server list</li>
-                    </ul>
-                    <hr class="m-1 pb-1">
-                    <i>ORBITE PLUS is in no way affiliated with or endorsed by Neuronality SARL.</i>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-<div class="modal" tabindex="-1" id="settingsModal" data-nosnippet>
-    <div class="modal-dialog d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div class="form-check ps-0">
-                    <label class="form-check-label" for="preferenceCopyFullLink"><b>Use Full Links</b></label>
-                    <input class="form-check-input float-end" type="checkbox" name="preferenceCopyFullLink" id="preferenceCopyFullLink">
-                </div>
-                <div class="form-check ps-0 ">
-                    <label class="form-check-label" for="preferenceCenterMapAsteroids"><b>Center Map on Asteroid Field</b></label>
-                    <input class="form-check-input float-end" type="checkbox" name="preferenceCopyFullLink" id="preferenceCenterMapAsteroids">
-                </div>
-                <div style="display: flex; align-items: center; overflow: hidden hidden; margin-bottom: 1%;">
-                    <label for="preferenceTheme" style="width: -moz-available;width: -webkit-fill-available;width: fill-available;"><b>Theme</b></label>
-                    <select id="preferenceTheme" class="form-select-sm" style="max-width: 40%;"></select>
-                </div>
-                <div id="customThemeSelection" style="display: flex; align-items: center; overflow: auto hidden">
-                    <label style="width: -moz-available;width: -webkit-fill-available;width: fill-available;" for="useCustomTheme"><b>Custom Theme </b></label>
-                    <select class="form-select-sm" style="max-width:30%" name="useCustomTheme" id="useCustomTheme"></select>
-                    <button class="btn btn-danger" style="padding-top:0;padding-bottom:0;margin-left:1%;" id="customThemeEditButton">Edit</button>
-                    <button class="btn btn-danger" style="padding-top:0;padding-bottom:0;margin-left:1%;" id="customThemeDeleteButton">Delete</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <div class="modal" tabindex="-1" id="spectatorModal" data-nosnippet>
-    <div class="modal-dialog mt-0 modal-xl d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="spectatorModalTitle">Spectating: ???</h5>
-            </div>
-            <div class="modal-body">
-                <div class="row" id="spectateRow">
-                    <div class="col-sm-6 px-0">
-                        <canvas id="spectatorCanvas"></canvas>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="notifNewRecord" class="setting-checkbox">
+                            <span>Notifications des nouveaux records</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="notifFriends" class="setting-checkbox">
+                            <span>Notifier mes amis dans le top 10</span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label class="setting-label">
+                            <input type="checkbox" id="autoRefresh" class="setting-checkbox" checked>
+                            <span>Actualisation automatique (30s)</span>
+                        </label>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal" tabindex="-1" id="shareGameModal" data-nosnippet>
-    <div class="modal-dialog d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <div class="modal-content">
-            <div class="modal-body">
-                <h5 class="text-center">Share Custom Game</h5>
-                <label for="customGameLinkInput" class="d-none"></label>
-                <div class="input-group">
-                    <input type="text" id="customGameLinkInput" class="form-control" autocomplete="off" autocapitalize="off" placeholder="https://starblast.io/#1234@123.123.123.123">
-                    <button class="btn btn-danger" id="shareCustomGame"><i class="bi bi-arrow-bar-right"></i></button>
+    <!-- Modal À Propos -->
+    <div class="modal fade" id="aboutModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">À Propos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6>ORBITE PLUS v2.0</h6>
+                    <p>Suivi en temps réel des meilleurs joueurs Starblast en Europe.</p>
+                    <p><small>Dernière mise à jour: <span id="lastUpdate">--:--</span></small></p>
+                    <hr>
+                    <p><strong>Régions supportées:</strong> Europe uniquement</p>
+                    <p><strong>Modes suivis:</strong> Survie, Mode Équipe, Kills</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal" id="customThemeEditorModal" tabindex="-1" data-nosnippet>
-    <div class="modal-dialog modal-lg d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <div class="modal-content">
-        	<div class="modal-body">
-            	<h5 class="text-center">Custom Theme Editor</h5>
-            	<p class="text-center" style="margin-bottom: 0;">Changes will automatically save and take effect</p>
-				Name:
-				<input type="text" id="customThemeName" class="form-control" autocomplete="off" autocapitalize="off" placeholder="Your theme name">
-            	Code:
-            	<textarea id="customThemeText"></textarea>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="orbite-app" data-nosnippet>
-    <header class="orbite-command" id="navbar">
-        <div class="orbite-title-block">
-            <span class="orbite-kicker">Records Survival & Team Mode</span>
-            <a class="navbar-brand orbite-wordmark"><b>ORBITE</b> PLUS</a>
-        </div>
-        <div class="orbite-command-actions">
-            <button class="orbite-icon-button bi bi-sliders" id="navbarSettingsButton" title="Parametres"></button>
-            <button class="orbite-icon-button bi bi-info-lg" id="navbarAboutButton" title="Infos"></button>
-        </div>
-    </header>
-
-    <div class="orbite-native-controls" aria-hidden="true">
-        <input class="form-check-input" type="radio" name="region" id="America" checked>
-        <input class="form-check-input" type="radio" name="region" id="Europe">
-        <input class="form-check-input" type="radio" name="region" id="Asia">
-        <input class="form-check-input" type="radio" name="region" id="World">
-        <input class="form-check-input" type="checkbox" value="" id="teamMode" checked>
-        <input class="form-check-input" type="checkbox" value="" id="survivalMode" checked>
-        <input class="form-check-input" type="checkbox" value="" id="deathmatchMode" checked>
-        <input class="form-check-input" type="checkbox" value="" id="moddingMode" checked>
-        <input class="form-check-input" type="checkbox" value="" id="invasionMode">
-        <input class="form-check-input" type="checkbox" value="" id="customMode">
-    </div>
-
-    <main class="orbite-dashboard orbite-records-dashboard">
-        <aside class="orbite-panel orbite-control-panel" id="viewOptions">
-            <section class="orbite-section">
-                <span class="orbite-section-label">Collecte</span>
-                <label class="orbite-field" for="orbiteRegionSelect">
-                    <span>Zone</span>
-                    <select class="form-select" id="orbiteRegionSelect">
-                        <option value="America">America</option>
-                        <option value="Europe">Europe</option>
-                        <option value="Asia">Asia</option>
-                    </select>
-                </label>
-                <label class="orbite-field" for="orbiteModePreset">
-                    <span>Mode suivi</span>
-                    <select class="form-select" id="orbiteModePreset">
-                        <option value="competitive">Survival + Team</option>
-                        <option value="team">Team Mode seulement</option>
-                        <option value="survival">Survival seulement</option>
-                        <option value="all">Tous les modes visibles</option>
-                    </select>
-                </label>
-            </section>
-
-            <section class="orbite-section">
-                <span class="orbite-section-label">Population</span>
-                <div class="orbite-pop-grid">
-                    <span>America <b id="countAmerica">69</b></span>
-                    <span>Europe <b id="countEurope">69</b></span>
-                    <span>Asia <b id="countAsia">69</b></span>
-                    <span>Total <b id="countTotal">420</b></span>
-                </div>
-            </section>
-
-            <section class="orbite-section">
-                <span class="orbite-section-label">Apparence</span>
-                <label class="orbite-field" for="orbiteThemeMode">
-                    <span>Fond anime</span>
-                    <select class="form-select" id="orbiteThemeMode">
-                        <option value="nebula">Nebula</option>
-                        <option value="eclipse">Eclipse</option>
-                        <option value="solar">Solar</option>
-                        <option value="aurora">Aurora</option>
-                    </select>
-                </label>
-                <label class="orbite-field" for="orbiteCursorMode">
-                    <span>Curseur</span>
-                    <select class="form-select" id="orbiteCursorMode">
-                        <option value="orbit">Orbite</option>
-                        <option value="comet">Comete</option>
-                        <option value="pulse">Pulse</option>
-                    </select>
-                </label>
-            </section>
-
-            <section class="orbite-section">
-                <span class="orbite-section-label">Alertes</span>
-                <label class="orbite-switch" for="newServerAlert">
-                    <input class="form-check-input" type="checkbox" value="" id="newServerAlert">
-                    <span>Nouveau serveur</span>
-                </label>
-            </section>
-        </aside>
-
-        <section class="orbite-panel orbite-ranking-panel orbite-team-panel">
-            <div class="orbite-panel-heading">
-                <div>
-                    <span class="orbite-section-label">Team Mode</span>
-                    <h2>Kills cumules</h2>
-                </div>
-                <span class="orbite-rank-badge">TEAM</span>
-            </div>
-            <div id="orbiteTeamLeaderboard" class="orbite-leaderboard"></div>
-        </section>
-
-        <section class="orbite-panel orbite-ranking-panel orbite-survival-panel">
-            <div class="orbite-panel-heading">
-                <div>
-                    <span class="orbite-section-label">Survival</span>
-                    <h2>Kills cumules</h2>
-                </div>
-                <span class="orbite-rank-badge">SURVIE</span>
-            </div>
-            <div id="orbiteSurvivalLeaderboard" class="orbite-leaderboard"></div>
-        </section>
-
-        <section class="orbite-panel orbite-ranking-panel orbite-ship-panel">
-            <div class="orbite-panel-heading">
-                <div>
-                    <span class="orbite-section-label">Survival seulement</span>
-                    <h2>Records par vaisseau</h2>
-                </div>
-                <button class="orbite-icon-button bi bi-arrow-counterclockwise" id="orbiteLeaderboardReset" title="Reset"></button>
-            </div>
-            <div id="orbiteSurvivalShipRecords" class="orbite-leaderboard orbite-ship-records"></div>
-        </section>
-
-        <section class="orbite-panel orbite-ranking-panel orbite-games-panel">
-            <div class="orbite-panel-heading">
-                <div>
-                    <span class="orbite-section-label">Parties</span>
-                    <h2>Parties suivies</h2>
-                </div>
-                <span class="orbite-rank-badge">LIVE</span>
-            </div>
-            <div id="orbiteGamesLeaderboard" class="orbite-leaderboard"></div>
-        </section>
-
-        <div class="orbite-hidden-runtime" id="systemsListContainer">
-            <button id="shareCustomGameCard" type="button"></button>
-            <div id="systemsList"></div>
-            <section id="systemReport">
-                <h2 id="SR_Name">Trappist-1</h2>
-                <span id="SR_Mode"></span>
-                <span id="SR_Region"></span>
-                <span id="SR_Time"></span>
-                <span id="SR_ID"></span>
-                <span id="SR_Criminality"></span>
-                <span id="SR_PlayerCount"></span>
-                <div id="SR_StaticAPIRequired">
-                    <span id="SR_ECPCount"></span>
-                    <div id="SR_TeamModeRequired"><span id="SR_TotalTeamScores"></span></div>
-                    <span id="SR_OrbiteTop"></span>
-                    <span id="SR_PlayerList"></span>
-                </div>
-                <button id="systemCopyLink"><i id="clipboard"></i></button>
-                <a id="systemReportLink"></a>
-                <button id="systemSpectateButton"></button>
-            </section>
-        </div>
-    </main>
-</div>
-
-<!-- Force Font Preload Workaround -->
-<div class="font-preload">
-    <span style="font-family: SBGlyphs,serif;"></span>
-</div>
-
-<!-- Site JS Scripts -->
-<script type="text/javascript" src="./js/ui.js"></script>
-<script type="text/javascript" src="./js/serverList.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/ui.js"></script>
 </body>
 </html>
